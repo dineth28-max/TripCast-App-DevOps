@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build:
+      context: ./services/auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "8888:8888"
+    environment:
+      - JWT_SECRET=my_development_secret_key_change_in_prod
+      - PORT=8888
+    restart: unless-stopped
+    networks:
+      - tripcast-network
+
+networks:
+  tripcast-network:
+    driver: bridge
